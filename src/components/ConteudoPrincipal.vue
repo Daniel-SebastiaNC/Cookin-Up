@@ -6,12 +6,20 @@ import Tag from './Tag.vue';
     export default{
         data() {
             return {
-                ingredientes: ['Alho', 'Carne', 'Banana']
+                ingredientes: [] as string[]
             }
         },
         components: { 
           SelecionarIngredientes : SelecionarIngredientes,
           Tag: Tag
+         }, 
+         methods: {
+          adicionarIngrediente(ingrediente: string){
+            this.ingredientes.push(ingrediente);
+          },
+          removerIngrediente(ingrediente: string) {
+            this.ingredientes = this.ingredientes.filter((item) => item !== ingrediente);
+          }
          }
     }
 </script>
@@ -36,7 +44,10 @@ import Tag from './Tag.vue';
             </p>
         </section>
 
-        <SelecionarIngredientes />
+        <SelecionarIngredientes
+        @adicionar-ingrediente="adicionarIngrediente($event)" 
+        @remover-ingrediente="removerIngrediente($event)"
+        />
     </main>
 </template>
 
