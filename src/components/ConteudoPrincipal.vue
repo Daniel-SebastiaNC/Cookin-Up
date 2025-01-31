@@ -52,17 +52,21 @@ type Pagina = 'SelecionarIngredientes' | 'MostrarReceitas';
             </p>
         </section>
 
-        <SelecionarIngredientes v-if="conteudo === 'SelecionarIngredientes'"
-        @adicionar-ingrediente="adicionarIngrediente($event)" 
-        @remover-ingrediente="removerIngrediente($event)"
-        @buscar-receitas="navegar($event)"
-        />
+        <KeepAlive include="SelecionarIngredientes">
 
-        <MostrarReceitas
-        v-else-if="conteudo === 'MostrarReceitas'"
-        @editar-receitas="navegar('SelecionarIngredientes')"
-        />
-        
+          <SelecionarIngredientes v-if="conteudo === 'SelecionarIngredientes'"
+          @adicionar-ingrediente="adicionarIngrediente($event)" 
+          @remover-ingrediente="removerIngrediente($event)"
+          @buscar-receitas="navegar($event)"
+          />
+          
+          <MostrarReceitas
+          v-else-if="conteudo === 'MostrarReceitas'"
+          @editar-receitas="navegar('SelecionarIngredientes')"
+          :ingredientes="ingredientes"
+          />
+          
+        </KeepAlive>
     </main>
 </template>
 
